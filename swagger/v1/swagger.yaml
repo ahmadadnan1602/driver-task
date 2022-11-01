@@ -1,0 +1,186 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/add_user":
+    post:
+      summary: Creates a User
+      parameters: []
+      responses:
+        '200':
+          description: User got created...
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+  "/new_driver":
+    post:
+      summary: Creates a Driver
+      parameters: []
+      responses:
+        '200':
+          description: Driver created
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                address:
+                  type: string
+                licence_number:
+                  type: string
+                d_o_b:
+                  type: string
+                user_id:
+                  type: integer
+  "/drivers":
+    get:
+      summary: Drivers list
+      responses:
+        '200':
+          description: successful
+  "/user_lists":
+    get:
+      summary: Users list
+      responses:
+        '200':
+          description: successful
+  "/drivers/{id}/add_new_cards":
+    parameters:
+    - name: id
+      in: path
+      description: id
+      required: true
+      schema:
+        type: string
+    post:
+      summary: Creates a Card Details
+      parameters: []
+      responses:
+        '200':
+          description: card created
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                card_no:
+                  type: string
+                expiry_month:
+                  type: string
+                expiry_year:
+                  type: integer
+                is_active:
+                  type: boolean
+                is_default:
+                  type: boolean
+  "/drivers/{id}/card_details":
+    parameters:
+    - name: id
+      in: path
+      description: id
+      required: true
+      schema:
+        type: string
+    get:
+      summary: card_details list
+      responses:
+        '200':
+          description: successful
+  "/drivers/{id}/add_fuel":
+    parameters:
+    - name: id
+      in: path
+      description: driver_id
+      required: true
+      schema:
+        type: string
+    post:
+      summary: Creates a fuel
+      parameters: []
+      responses:
+        '200':
+          description: fuel created
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                amount:
+                  type: integer
+                description:
+                  type: string
+                transaction_type:
+                  type: integer
+  "/drivers/{id}/wallet_history":
+    parameters:
+    - name: id
+      in: path
+      description: driver_id
+      required: true
+      schema:
+        type: string
+    post:
+      summary: Wallet history
+      responses:
+        '200':
+          description: Wallet history
+  "/overall_paylater_amount":
+    get:
+      summary: Wallet
+      responses:
+        '200':
+          description: successful
+  "/drivers/{id}/transaction_histories":
+    parameters:
+    - name: id
+      in: path
+      description: driver_id
+      required: true
+      schema:
+        type: string
+    post:
+      summary: All transaction histories
+      responses:
+        '200':
+          description: Transaction histories
+  "/drivers/{id}/settle_transaction":
+    parameters:
+    - name: id
+      in: path
+      description: driver_id
+      required: true
+      schema:
+        type: string
+    post:
+      summary: Settle transaction
+      parameters: []
+      responses:
+        '200':
+          description: Settle transaction
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                transaction_history_id:
+                  type: integer
+servers:
+- url: https://{defaultHost}
+  variables:
+    defaultHost:
+      default: testdrivertask.herokuapp.com/api/v1
